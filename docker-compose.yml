@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  jenkins-agent:
+    build: .
+    container_name: devops-agent
+    environment:
+      - JENKINS_URL=${JENKINS_URL:-http://jenkins:8080}
+      - JENKINS_AGENT_PORT=${JENKINS_AGENT_PORT:-50000}
+      - JENKINS_TOKEN=${JENKINS_TOKEN:-}
+    volumes:
+      - agent-workspace:/workspace
+    restart: unless-stopped
+
+volumes:
+  agent-workspace:
